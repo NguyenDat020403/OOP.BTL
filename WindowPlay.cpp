@@ -11,7 +11,6 @@ void WindowPlay(){
 	t4.loadFromFile("images/back2.png");
 	trang.loadFromFile("images/trang.png");
 	den.loadFromFile("images/den.png");
-	
 	Font font;
 	if (!font.loadFromFile("font/rockston.ttf"))
 	{
@@ -33,7 +32,6 @@ void WindowPlay(){
 	White.setPosition(545,100);
 	Black.setPosition(545,100);
 	back.setPosition(550,430);
-	
 	loadPosition();
 	int demnuoc=0;
 	bool isMove=false;
@@ -45,7 +43,6 @@ void WindowPlay(){
 	while (window.isOpen())
  	{
 		Vector2i pos = Mouse::getPosition(window) - Vector2i(offset);
-
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -93,10 +90,8 @@ void WindowPlay(){
 						window.close();
 					}
 				}
-			}
-		
-				
-						    ////// draw  ///////
+			}	
+	   ////// draw  ///////
 		window.clear(); // xoa mnan hinh
 		window.draw(sBoard1);
 		window.draw(sBoard); /// ve ban co 
@@ -104,7 +99,6 @@ void WindowPlay(){
 		window.draw(back);
 		if(demnuoc %2 == 0){
 			window.draw(White);
-			
 		}else{
 			window.draw(Black);
 		}
