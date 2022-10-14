@@ -8,9 +8,11 @@ int main()
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");
 	//Background menu
-	Texture m1;
+	Texture m1,about;
 	m1.loadFromFile("C:\\Users\\DatNgu\\Desktop\\OOP\\images\\m1.png");
-	Sprite M1(m1);
+	about.loadFromFile("images/about.png");
+	Sprite M1(m1),About(about);
+	About.setPosition(610,10);
 	Menu menu(650,504);
 	Music music;
 	music.openFromFile("C:\\Users\\DatNgu\\Desktop\\OOP\\music\\MenuMusic.wav");
@@ -37,7 +39,26 @@ int main()
 						if(posMenu.x >325 &&  posMenu.x < 420 && posMenu.y >378 && posMenu.y < 438 ){
 							window.close();
 						}	
-				}
+						if(posMenu.x >610 &&  posMenu.x < 640 && posMenu.y >10 && posMenu.y < 40){
+							RenderWindow about(VideoMode(650,504),"Thong tin");
+							Texture tt;
+							tt.loadFromFile("images/a1.png");
+							Sprite TT(tt);
+							while(about.isOpen()){
+								Event event1;
+								while(about.pollEvent(event1)){
+									if (event1.type == Event::Closed)
+											about.close();
+								}
+								about.clear();
+								about.draw(TT);
+								about.display();
+							}
+							
+						}
+							
+					}
+				
 				break;
 			}	
 			case Event::KeyReleased:
@@ -79,6 +100,7 @@ int main()
 		}
 		window.clear();
 		window.draw(M1);
+		window.draw(About);
 		menu.draw(window);
 		window.display();
 	}
