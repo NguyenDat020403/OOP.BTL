@@ -5,6 +5,7 @@
 #include "WindowOption.h"
 #include "AboutWindow.h"
 // Tan da fix
+//ádasd
 int main()
 {
 	//Tao khung window hien thi menu
