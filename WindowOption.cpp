@@ -4,7 +4,7 @@
 void WindowOption(){
 	RenderWindow window1(VideoMode(650,504),"OPTIONS");
 	Texture m2,b1;
-	m2.loadFromFile("C:\\Users\\DatNgu\\Desktop\\OOP\\images\\m1.png");
+	m2.loadFromFile("images/m1.png");
 	b1.loadFromFile("images/back2.png");
 	Font font;
 	if (!font.loadFromFile("font/rockston.ttf"))

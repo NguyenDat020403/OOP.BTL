@@ -1,7 +1,7 @@
 #include "Menu.h"
 Menu::Menu(float width, float height)
 {
-	if (!font.loadFromFile("C:\\Users\\DatNgu\\Desktop\\chess\\font\\rockston.ttf"))
+	if (!font.loadFromFile("font/rockston.ttf"))
 	{
 		// handle error
 	}
