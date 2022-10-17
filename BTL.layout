@@ -1,6 +1,6 @@
 [Editors]
 Order=0,1,2,4,3,5,7,6,8,9,10
-Focused=0
+Focused=-1
 [Editor_0]
 CursorCol=14
 CursorRow=7
