@@ -10,10 +10,10 @@ int main()
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");
 	//Background menu
-	Image img;
+	Image img1;
 	Texture m1,about;
-	img.loadFromFile("images/chess-icon.png");
-	window.setIcon(40,40,img.getPixelsPtr());
+	img1.loadFromFile("images/chess-icon.png");
+	window.setIcon(40,40,img1.getPixelsPtr());
 	m1.loadFromFile("images/m1.png");
 	about.loadFromFile("images/about.png");
 	Sprite M1(m1),About(about);
