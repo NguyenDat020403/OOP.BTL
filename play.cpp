@@ -16,7 +16,7 @@ int board[8][8] =
 string toChessNote(Vector2f p)
 {
 	string s = "";
-	s += char(p.x/size+97);
+	s += char(p.x/size+97); // 
 	s += char(7-p.y/size+49);
 	return s;
 }
@@ -50,9 +50,11 @@ void loadPosition()
        if (!n) continue;
        int x = abs(n)-1;
        int y = n>0?1:0;
-       f[k].setTextureRect( IntRect(size*x,size*y,size,size) );
-       f[k].setPosition(size*j,size*i);
-       k++;
+       
+       		f[k].setTextureRect( IntRect(size*x,size*y,size,size) );
+      		f[k].setPosition(size*j,size*i);
+      	 	k++;
+	   
      }
     for(int i=0;i<position.length();i+=5)
       move(position.substr(i,4));
