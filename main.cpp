@@ -3,9 +3,8 @@
 #include "Menu.h"
 #include "WindowPlay.h"
 #include "WindowOption.h"
-#include "AboutWindow.h"
+
 // Tan da fix
-//ádasd
 int main()
 {
 	//Tao khung window hien thi menu
@@ -46,7 +45,7 @@ int main()
 						}	
 						
 						if(posMenu.x >610 &&  posMenu.x < 640 && posMenu.y >10 && posMenu.y < 40){
-							AboutWindow();
+							
 						}
 					}
 				
