@@ -2,7 +2,7 @@
 #include "play.h"
 #include "Menu.h"
 #include "WindowPlay.h"
-//#include "WindowOption.h"
+#include "WindowOption.h"
 #include "AboutWindow.h"
 // Tan da fix
 int main()
@@ -38,7 +38,7 @@ int main()
 						}
 						if(posMenu.x >325 &&  posMenu.x < 500 && posMenu.y >252 && posMenu.y < 312 ){
 							
-//							WindowOption();
+							WindowOption();
 						}
 						if(posMenu.x >325 &&  posMenu.x < 420 && posMenu.y >378 && posMenu.y < 438 ){
 							window.close();
@@ -72,11 +72,11 @@ int main()
 						WindowPlay();
 						break;
 					} 
-//					case 1:{
-//						
-//						WindowOption();			
-//						break;
-//					}
+					case 1:{
+						
+						WindowOption();			
+						break;
+					}
 					case 2:
 						window.close();
 						break;
