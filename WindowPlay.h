@@ -1,3 +1,8 @@
 #include "play.h"
 
-void WindowPlay();
+
+		void WindowPlay();
+		
+
+
+

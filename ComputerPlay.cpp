@@ -1,9 +1,11 @@
-#include "WindowPlay.h"
+#include "ComputerPlay.h"
+#include "Connector.hpp"
 
-void WindowPlay(){
-
-//Dong cua so Menu tao ra cua so moi - Cua so "Play"
+void ComputerPlay(){
+	
+	
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
+	ConnectToEngine("stockfish.exe");
 	Texture t1,t2,t3,t4,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
@@ -38,7 +40,7 @@ void WindowPlay(){
 	float dx=0, dy=0;
 	Vector2f oldPos,newPos;
 	string str;
-	int n=0;
+	int n=0; 
 	// Bat su kien ban phim va chuot
 	while (window.isOpen())
  	{
@@ -95,24 +97,48 @@ void WindowPlay(){
 				break;
 			}
 		}
-		if (event.type == Event::MouseButtonPressed){
-			if (event.mouseButton.button == Mouse::Left){
-					
-				Vector2i posPlay = Mouse::getPosition(window);
-				if(posPlay.x>550 && posPlay.x <620 && posPlay.y >430 && posPlay.y <500){
-					int u=0;
-					while(u!=1){
-						for(int i=0;i<32;i++) f[i].move(offset);// 
-						for(int i=0;i<32;i++) window.draw(f[i]); window.draw(f[n]);
-						for(int i=0;i<32;i++) f[i].move(-offset);
-						u=1;
-					}
-					window.close();
-								
-				}		
+			if (event.type == Event::MouseButtonPressed){
+				if (event.mouseButton.button == Mouse::Left){
+						
+					Vector2i posPlay = Mouse::getPosition(window);
+					if(posPlay.x>550 && posPlay.x <620 && posPlay.y >430 && posPlay.y <500){
+						int u=0;
+						while(u!=1){
+							for(int i=0;i<32;i++) f[i].move(offset);// 
+							for(int i=0;i<32;i++) window.draw(f[i]); window.draw(f[n]);
+							for(int i=0;i<32;i++) f[i].move(-offset);
+							u=1;
+						}
+						window.close();
+									
+					}		
+				}
 			}
 		}
-		
+		if (Keyboard::isKeyPressed(Keyboard::Space))
+       {
+         str =  getNextMove(position);
+                   
+         oldPos = toCoord(str[0],str[1]);
+         newPos = toCoord(str[2],str[3]);
+         
+         for(int i=0;i<32;i++) if (f[i].getPosition()==oldPos) n=i;
+         
+         /////animation///////
+         for(int k=0;k<50;k++)
+          {
+            Vector2f p = newPos - oldPos;
+            f[n].move(p.x/50, p.y/50); 
+            window.draw(sBoard);
+            for(int i=0;i<32;i++) f[i].move(offset);
+            for(int i=0;i<32;i++) window.draw(f[i]); window.draw(f[n]);
+            for(int i=0;i<32;i++) f[i].move(-offset);
+            window.display();
+          }
+
+        move(str);  position+=str+" ";
+        f[n].setPosition(newPos); 
+        }
 
 		if (isMove && pos.x-dx< 392){
 			f[n].setPosition(pos.x-dx,pos.y-dy);
@@ -137,7 +163,9 @@ void WindowPlay(){
 		
 		window.display();
 	}
-	}
+	CloseConnection();
+
+    
 	
 }
 

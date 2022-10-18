@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <time.h>
 #include <iostream>
 using namespace sf;
 using namespace std;
@@ -12,3 +13,4 @@ string toChessNote(Vector2f p);
 Vector2f toCoord(char a,char b);
 void move(string str);
 void loadPosition();
+

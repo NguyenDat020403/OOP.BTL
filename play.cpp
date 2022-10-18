@@ -59,3 +59,4 @@ void loadPosition()
     for(int i=0;i<position.length();i+=5)
       move(position.substr(i,4));
 }
+

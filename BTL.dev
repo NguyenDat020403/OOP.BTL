@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=11
+UnitCount=14
 
 [VersionInfo]
 Major=1
@@ -61,7 +61,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=Menu.cpp
+FileName=AboutWindow.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=Menu.h
+FileName=AboutWindow.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -81,7 +81,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=play.cpp
+FileName=Menu.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -91,7 +91,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=play.h
+FileName=Menu.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -101,7 +101,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=WindowPlay.cpp
+FileName=play.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -111,17 +111,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit7]
-FileName=WindowPlay.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit9]
-FileName=WindowOption.h
+FileName=play.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -140,8 +130,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit9]
+FileName=WindowOption.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit10]
-FileName=AboutWindow.cpp
+FileName=WindowPlay.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -151,7 +151,37 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit11]
-FileName=AboutWindow.h
+FileName=WindowPlay.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=ComputerPlay.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit13]
+FileName=ComputerPlay.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit14]
+FileName=Connector.hpp
 CompileCpp=1
 Folder=
 Compile=1
