@@ -66,7 +66,7 @@ void WindowPlay(){
 				{
 					isMove=false;
 					Vector2f p = f[n].getPosition() + Vector2f(size/2,size/2);
-
+				
 					newPos = Vector2f( size*int(p.x/size), size*int(p.y/size) );
 
 					str = toChessNote(oldPos)+toChessNote(newPos);
@@ -81,7 +81,9 @@ void WindowPlay(){
 				}                      
 			} 
 		}  
-		if (isMove) f[n].setPosition(pos.x-dx,pos.y-dy);
+		if (isMove && pos.x-dx< 504){
+			f[n].setPosition(pos.x-dx,pos.y-dy);
+		}
 		if (event.type == Event::MouseButtonReleased)
 			{
 				if (event.mouseButton.button == Mouse::Left){
@@ -90,7 +92,7 @@ void WindowPlay(){
 						window.close();
 					}
 				}
-			}	
+		}	
 	   ////// draw  ///////
 		window.clear(); // xoa mnan hinh
 		window.draw(sBoard1);
