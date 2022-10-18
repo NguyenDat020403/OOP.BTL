@@ -4,13 +4,16 @@
 #include "WindowPlay.h"
 #include "WindowOption.h"
 #include "AboutWindow.h"
-// Tan da fix
+
 int main()
 {
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");
 	//Background menu
+	Image img;
 	Texture m1,about;
+	img.loadFromFile("images/chess-icon.png");
+	window.setIcon(40,40,img.getPixelsPtr());
 	m1.loadFromFile("images/m1.png");
 	about.loadFromFile("images/about.png");
 	Sprite M1(m1),About(about);
