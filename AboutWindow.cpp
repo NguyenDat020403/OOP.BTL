@@ -5,6 +5,9 @@ void AboutWindow(){
 	//about
 	
 	RenderWindow about(VideoMode(650,504),"Thong tin");
+	Image img1;
+	img1.loadFromFile("images/abouticon.png");
+	about.setIcon(50,50,img1.getPixelsPtr());
 	Texture tt,tt2,back;
 	tt.loadFromFile("images/a5.png");
 	tt2.loadFromFile("images/a6.png");

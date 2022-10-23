@@ -3,6 +3,9 @@
 #include "ComputerPlay.h"
 void WindowOption(){
 	RenderWindow window1(VideoMode(650,504),"OPTIONS");
+	Image img1;
+	img1.loadFromFile("images/optionicon.png");
+	window1.setIcon(50,50,img1.getPixelsPtr());
 	Texture m2,b1,people1,people2,computer1,computer2;
 	m2.loadFromFile("images/backgroundOption.png");
 	b1.loadFromFile("images/back2.png");

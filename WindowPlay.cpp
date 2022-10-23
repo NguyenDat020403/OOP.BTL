@@ -4,6 +4,9 @@ void WindowPlay(){
 
 //Dong cua so Menu tao ra cua so moi - Cua so "Play"
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
+	Image img1;
+	img1.loadFromFile("images/playicon.png");
+	window.setIcon(50,50,img1.getPixelsPtr());
 	Texture t1,t2,t3,t4,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
@@ -114,7 +117,7 @@ void WindowPlay(){
 		}
 		
 
-		if (isMove && pos.x-dx< 392){
+		if (isMove && pos.x-dx< 420){
 			f[n].setPosition(pos.x-dx,pos.y-dy);
 			
 		}

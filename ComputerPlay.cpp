@@ -5,6 +5,9 @@ void ComputerPlay(){
 	
 	
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
+	Image img1;
+	img1.loadFromFile("images/computericon.png");
+	window.setIcon(50,50,img1.getPixelsPtr());
 	ConnectToEngine("stockfish.exe");
 	Texture t1,t2,t3,t4,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
@@ -118,6 +121,25 @@ void ComputerPlay(){
 		if (Keyboard::isKeyPressed(Keyboard::Space))
        {
          str =  getNextMove(position);
+         if(str == "error"){
+         	RenderWindow thongbao(VideoMode(200, 100), "Thua roi!!!");
+         	Text tb;
+         	tb.setFont(font);
+			tb.setFillColor(sf::Color::Red);
+			tb.setString("You lose.");
+			tb.setCharacterSize(20);
+			tb.setPosition(70,40);
+			while(thongbao.isOpen()){
+				Event temp;
+				while(thongbao.pollEvent(temp)){
+					if (temp.type == Event::Closed)
+						thongbao.close();
+				}
+				thongbao.clear();
+				thongbao.draw(tb);
+				thongbao.display();
+			}
+		 }
                    
          oldPos = toCoord(str[0],str[1]);
          newPos = toCoord(str[2],str[3]);
@@ -140,7 +162,7 @@ void ComputerPlay(){
         f[n].setPosition(newPos); 
         }
 
-		if (isMove && pos.x-dx< 392){
+		if (isMove && pos.x-dx< 420){
 			f[n].setPosition(pos.x-dx,pos.y-dy);
 			
 		}

@@ -50,11 +50,11 @@ std::string getNextMove(std::string position)
         buffer[read] = 0;    
         str+=(char*)buffer;
     }
-    while(read >= sizeof(buffer));
+    while(read > sizeof(buffer));
 
     int n = str.find("bestmove");  
     if (n!=-1) return str.substr(n+9,4);
-             
+            
     return "error";
 }
 

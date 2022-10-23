@@ -4,14 +4,16 @@
 #include "WindowPlay.h"
 #include "WindowOption.h"
 #include "AboutWindow.h"
+
+
 int main()
 {
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");
 	
 	//Background menu
-	Image img1;
 	Texture m1,about;
+	Image img1;
 	img1.loadFromFile("images/chess-icon.png");
 	window.setIcon(40,40,img1.getPixelsPtr());
 	m1.loadFromFile("images/m1.png");
@@ -35,10 +37,10 @@ int main()
 			case Event::MouseButtonReleased:{
 				if(event.mouseButton.button== Mouse::Left){
 						Vector2i posMenu = Mouse::getPosition(window);
-						if(posMenu.x >275 &&  posMenu.x < 380 && posMenu.y >126 && posMenu.y < 166 ){
+						if(posMenu.x >225 &&  posMenu.x < 470 && posMenu.y >126 && posMenu.y < 166 ){
 							WindowPlay();
 						}
-						if(posMenu.x >275 &&  posMenu.x < 430 && posMenu.y >252 && posMenu.y < 312 ){
+						if(posMenu.x >245 &&  posMenu.x < 430 && posMenu.y >252 && posMenu.y < 312 ){
 							menu.MoveDown();
 							WindowOption();
 						}
