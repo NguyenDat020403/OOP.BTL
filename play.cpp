@@ -30,34 +30,42 @@ void move(string str)
 {
     Vector2f oldPos = toCoord(str[0],str[1]);
     Vector2f newPos = toCoord(str[2],str[3]);
-    for(int i=0;i<32;i++)
-     if (f[i].getPosition()==newPos) f[i].setPosition(-100,-100);
     for(int i=0;i<32;i++){
-     if (f[i].getPosition()==oldPos) f[i].setPosition(newPos);
-     if(abs(i)!=5 && f[i].getPosition()==f[5].getPosition()){
-     		Font font;
-			if (!font.loadFromFile("font/rockston.ttf"))
-			{
-			}
-     		RenderWindow thongbao(VideoMode(200, 100), "Thua roi!!!");
-         	Text tb;
-         	tb.setFont(font);
-			tb.setFillColor(sf::Color::Red);
-			tb.setString("You lose.");
-			tb.setCharacterSize(20);
-			tb.setPosition(70,40);
-			while(thongbao.isOpen()){
-				Event temp;
-				while(thongbao.pollEvent(temp)){
-					if (temp.type == Event::Closed)
-						thongbao.close();
+    	
+	    	if( newPos == f[4].getPosition() || newPos == f[28].getPosition()){
+		     	Font font;
+				if (!font.loadFromFile("font/rockston.ttf"))
+				{
 				}
-				thongbao.clear();
-				thongbao.draw(tb);
-				thongbao.display();
+		     	RenderWindow thongbao(VideoMode(200, 100), "Thua roi!!!");
+		        Text tb;
+		        tb.setFont(font);
+				tb.setFillColor(sf::Color::Red);
+				tb.setString("You lose.");
+				tb.setCharacterSize(20);
+				tb.setPosition(60,40);
+				while(thongbao.isOpen()){
+					Event temp;
+					while(thongbao.pollEvent(temp)){
+						if (temp.type == Event::Closed)
+							thongbao.close();
+					}
+					thongbao.clear();
+					thongbao.draw(tb);
+					thongbao.display();
+				}
+				break;
 			}
-	 }
-     }
+		
+	}
+    for(int i=0;i<32;i++)
+    	if (f[i].getPosition()==newPos) f[i].setPosition(-100,-100);
+	for(int i=0;i<32;i++){
+	    if (f[i].getPosition()==oldPos){
+	    	f[i].setPosition(newPos);
+		}
+    }
+    
     //castling       //if the king didn't move
     if (str=="e1g1") if (position.find("e1")==-1) move("h1f1"); 
     if (str=="e8g8") if (position.find("e8")==-1) move("h8f8");
