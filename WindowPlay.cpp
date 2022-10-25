@@ -93,7 +93,10 @@ void WindowPlay(){
 
 					f[n].setPosition(newPos);         
 					sfx.play();  
-					  demnuoc++; 
+					//turn
+					
+					//turn
+					  
 				}                      
 				break;
 			}
