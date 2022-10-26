@@ -56,7 +56,7 @@ void move(string str)
 				}
 				break;
 			}
-		
+		//returen
 	}
     for(int i=0;i<32;i++)
     	if (f[i].getPosition()==newPos) f[i].setPosition(-100,-100);
