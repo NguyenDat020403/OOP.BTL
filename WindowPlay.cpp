@@ -94,7 +94,10 @@ void WindowPlay(){
 					f[n].setPosition(newPos);         
 					sfx.play();  
 					//turn
-					
+					Vector2i poS = Mouse::getPosition(window);
+					if(poS.x<448 && poS.x>28 &&poS.y<448 && poS.y>28){
+						demnuoc++; 
+					}
 					//turn
 					  
 				}                      
