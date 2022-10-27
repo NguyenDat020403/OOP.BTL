@@ -1,7 +1,8 @@
 #include "WindowPlay.h"
+#include "GameManager.h"
 
 void WindowPlay(){
-
+	GameManager gm;
 //Dong cua so Menu tao ra cua so moi - Cua so "Play"
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
 	Image img1;
@@ -36,7 +37,10 @@ void WindowPlay(){
 	Black.setPosition(545,100);
 	back.setPosition(550,430);
 	loadPosition();
+	
+	
 	int demnuoc=0;
+	
 	bool isMove=false;
 	float dx=0, dy=0;
 	Vector2f oldPos,newPos;

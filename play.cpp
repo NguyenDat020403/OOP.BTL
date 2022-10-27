@@ -92,3 +92,5 @@ void loadPosition()
       move(position.substr(i,4));
 }
 
+
+

@@ -1,13 +1,14 @@
-
 #include "play.h"
 #include "Menu.h"
 #include "WindowPlay.h"
 #include "WindowOption.h"
 #include "AboutWindow.h"
-
+#include "GameManager.h"
 
 int main()
 {
+	GameManager gm;
+ 	
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");
 	
