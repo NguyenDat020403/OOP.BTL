@@ -1,5 +1,4 @@
 #include "play.h"
-
 #include <unistd.h>
 typedef struct
 {

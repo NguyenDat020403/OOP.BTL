@@ -1,6 +1,5 @@
 #include "ComputerPlay.h"
-#include "Connector.hpp"
-#include "GameManager.h"
+
 
 
 

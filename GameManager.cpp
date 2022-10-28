@@ -428,7 +428,7 @@ int demnuoc=0;
   }
   else  //computer moving
   {
-  	sleep(3);
+  	sleep(1.5);
    newPos= getNextMove(LuotChoi);
    int c=nS.top();   nS.pop();//lay dk thong tin roi xoa di
    oldPos=posS.top();  posS.pop();//vi ham move tu nhet trong stack roi
