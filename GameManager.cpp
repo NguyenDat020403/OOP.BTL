@@ -56,6 +56,7 @@ void GameManager::IncreasePositive(int i,int j){
 
 void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
 { 
+
  posS.push(oldPos);
  posS.push(newPos);
  nS.push(n);
@@ -334,7 +335,6 @@ void GameManager::Play()
 	Image img1;
 	img1.loadFromFile("images/computericon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
-	
 	Texture t1,t2,t3,t4,no,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
@@ -344,9 +344,7 @@ void GameManager::Play()
 	trang.loadFromFile("images/trang.png");
 	den.loadFromFile("images/den.png");
 	Font font;
-	if (!font.loadFromFile("font/rockston.ttf"))
-	{
-	}
+	if (!font.loadFromFile("font/rockston.ttf")){}
 	Text turn;
 	turn.setFont(font);
 	turn.setString("TURN");
@@ -357,107 +355,170 @@ void GameManager::Play()
 	moveself.loadFromFile("move-self.wav");
 	Sound sfx;
 	sfx.setBuffer(moveself);
-
-
- for(int i=0;i<32;i++) f[i].s.setTexture(t1);
- Sprite sBoard1(t2),sBoard(t3);
- Sprite sPositive(no),back(t4),White(trang),Black(den);
-White.setPosition(545,100);
+	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
+	Sprite sBoard1(t2),sBoard(t3);
+	Sprite sPositive(no),back(t4),White(trang),Black(den);
+	White.setPosition(545,100);
 	Black.setPosition(545,100);
 	back.setPosition(550,430);
- Create();//khoi tao
-int demnuoc=0;
- bool LuotChoi=true;//luot choi : = true=> nguoi ... =false => may
- Vector2f oldPos,newPos;// luu vi tri click lan1 va lan2
- int n=0,click=0,count=0;
- Vector2i pos;//vitri chuot khi click
- while (window.isOpen())
- {
-  Event e;
-  while (window.pollEvent(e))
-  {
-   if (e.type == Event::Closed)
-    window.close();
-   ////move back//////
-   if (e.type == Event::KeyPressed)
-    if (e.key.code == Keyboard::BackSpace)
-    { Undo(); }
-   /////click///////
-   if (e.type == Event::MouseButtonPressed)
-    if (e.key.code == Mouse::Left)
-    {
-     pos = Mouse::getPosition(window) - Vector2i(offset);
-     click++;
-    }     
-}
-  if(LuotChoi==true)
-  {
-   if(click==1){
-    bool isMove=false;
-    for(int i=16;i<32;i++)
-    {
-     if(f[i].s.getGlobalBounds().contains(pos.x+offset.x,pos.y+offset.y))
-     {
-      isMove=true;
-      n=i;
-      f[n].s.setColor(Color::Green);
-      oldPos=f[n].s.getPosition();
-     }
-    }
-    if(!isMove)  click=0;
-    else    {PositiveMoving(n);count=positiveCount;positiveCount=0;}
-   }
-   if(click==2)
-   {
-    f[n].s.setColor(Color::White);
-    int x=pos.x/size;   int y=pos.y/size;
-    newPos=Vector2f(x*size,y*size)+offset;
-    //chi di chuyen trong vung positiveMove
-    for(int i=0;i<count;i++)
-    {
-     if (positiveMove[i]==newPos){
-      move(n,oldPos,newPos);
-      LuotChoi=!LuotChoi; 
-      demnuoc++;
-     }
-    }
-    //reset
-    count=0;
-    click=0;
-   } 
-  }
-  else  //computer moving
-  {
-  	sleep(1.5);
-   newPos= getNextMove(LuotChoi);
-   int c=nS.top();   nS.pop();//lay dk thong tin roi xoa di
-   oldPos=posS.top();  posS.pop();//vi ham move tu nhet trong stack roi
-   move(c,oldPos,newPos);
-   LuotChoi=!LuotChoi;
-   demnuoc++;
-   //reset 
-   click=0;
-  }
+	Create();//khoi tao
+	int demnuoc=0;
+	bool LuotChoi=true;//luot choi : = true=> nguoi ... =false => may
+	Vector2f oldPos,newPos;// luu vi tri click lan1 va lan2
+	int n=0,click=0,count=0;
+	Vector2i pos;//vitri chuot khi click
+	while (window.isOpen())
+	{
+		Event e;
+		while (window.pollEvent(e))
+		{
+		   	if (e.type == Event::Closed)
+		    	window.close();
+		   	////move back//////
+		   	if (e.type == Event::KeyPressed)
+			    if (e.key.code== Keyboard::BackSpace)
+			    { 
+					Undo();
+				}
+		  	 /////click///////
+		  	if (e.type == Event::MouseButtonPressed)
+			    if (e.mouseButton.button == Mouse::Left)
+			    {
+			     	pos = Mouse::getPosition(window) - Vector2i(offset);
+			     	click++;
+			    }     
+		}
+		if(LuotChoi==true)
+		{
+		   	if(click==1){
+			    bool isMove=false;
+			    for(int i=16;i<32;i++)
+			    {
+				    if(f[i].s.getGlobalBounds().contains(pos.x+offset.x,pos.y+offset.y))
+				    {
+					    isMove=true;
+					    n=i;
+					    f[n].s.setColor(Color::Green);
+					    oldPos=f[n].s.getPosition();
+				    }
+			    }
+			    if(!isMove)  click=0;
+			    else{
+					PositiveMoving(n);
+					count=positiveCount;
+					positiveCount=0;
+				}
+	  		 }
+		   if(click==2)
+		   {
+			    f[n].s.setColor(Color::White);
+			    int x=pos.x/size;   int y=pos.y/size;
+			    newPos=Vector2f(x*size,y*size)+offset;
+			    // new== 28 an vua -> youlose va ngc lai
+			    // new== 28 an vua -> youlose va ngc lai
+			    // new== 28 an vua -> youlose va ngc lai
+			    // new== 28 an vua -> youlose va ngc lai
+			    // new== 28 an vua -> youlose va ngc lai
+			    if (newPos==f[28].s.getPosition()) {
+					Font font;
+					if (!font.loadFromFile("font/rockston.ttf"))
+					{
+					}
+					RenderWindow thongbao1(VideoMode(200, 100), "Thua roi!!!");
+					Text tb;
+					tb.setFont(font);
+					tb.setFillColor(sf::Color::Red);
+					tb.setString("You lose.");
+					tb.setCharacterSize(20);
+					tb.setPosition(60,40);
+					while(thongbao1.isOpen()){
+						Event temp;
+						while(thongbao1.pollEvent(temp)){
+							if (temp.type == Event::Closed)
+								thongbao1.close();
+							}
+							thongbao1.clear();
+							thongbao1.draw(tb);
+							thongbao1.display();
+							sleep(1);
+							window.close();
+						}
+						
+			
+						
+		 	}else if (newPos==f[4].s.getPosition()) {
+				Font font;
+				if (!font.loadFromFile("font/rockston.ttf"))
+				{
+				}
+				RenderWindow thongbao1(VideoMode(200, 100), "Thua roi!!!");
+				Text tb;
+				tb.setFont(font);
+				tb.setFillColor(sf::Color::Red);
+				tb.setString("You win.");
+				tb.setCharacterSize(20);
+				tb.setPosition(60,40);
+				while(thongbao1.isOpen()){
+					Event temp;
+					while(thongbao1.pollEvent(temp)){
+						if (temp.type == Event::Closed)
+							thongbao1.close();
+						}
+						thongbao1.clear();
+						thongbao1.draw(tb);
+						thongbao1.display();
+						sleep(1);
+						thongbao1.close();
+						window.close();
+					}
+								
+		 	}
+  		  //chi di chuyen trong vung positiveMove
+			    for(int i=0;i<count;i++)
+			    {
+			    	if (positiveMove[i]==newPos){
+				      	move(n,oldPos,newPos);
+				      	LuotChoi=!LuotChoi; 
+				      	demnuoc++;
+			  		}
+			    }
+				    //reset
+				    count=0;
+				    click=0;
+			} 
+		}
+		else  //computer moving
+		{
+		  	sleep(1.5);
+			newPos= getNextMove(LuotChoi);
+			int c=nS.top();   nS.pop();//lay dk thong tin roi xoa di
+			oldPos=posS.top();  posS.pop();//vi ham move tu nhet trong stack roi
+			move(c,oldPos,newPos);
+			LuotChoi=!LuotChoi;
+			demnuoc++;
+			//reset 
+			click=0;
+		}
   	
   ////// draw  ///////
-	window.clear();
-	window.draw(sBoard);
-	window.draw(sBoard1); /// ve ban co 
-	window.draw(turn);
-	if(demnuoc %2 == 0){
-		window.draw(White);
-	}else{
-		window.draw(Black);
+		window.clear();
+		window.draw(sBoard);
+		window.draw(sBoard1); /// ve ban co 
+		window.draw(turn);
+		if(demnuoc %2 == 0){
+			window.draw(White);
+		}else{
+			window.draw(Black);
+		}
+		window.draw(back);
+		for(int i=0;i<count;i++){
+		   	sPositive.setPosition(positiveMove[i]);
+		   	window.draw(sPositive);
+		}
+		for(int i=0;i<32;i++) {
+		   	window.draw(f[i].s);
+		}
+		  	window.display();
 	}
-	window.draw(back);
-  for(int i=0;i<count;i++){
-   sPositive.setPosition(positiveMove[i]);
-   window.draw(sPositive);
-  }
-  for(int i=0;i<32;i++) {
-   window.draw(f[i].s);
-  }
-  window.display();
- }
 }
 
