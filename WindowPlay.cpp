@@ -2,7 +2,6 @@
 #include "GameManager.h"
 
 void WindowPlay(){
-	GameManager gm;
 //Dong cua so Menu tao ra cua so moi - Cua so "Play"
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
 	Image img1;
@@ -24,7 +23,22 @@ void WindowPlay(){
 	turn.setString("TURN");
 	turn.setCharacterSize(40);
 	turn.setFillColor(Color::Black);
-	turn.setPosition(520,50);			    
+	turn.setPosition(520,165);
+	
+	Text pl1;
+	pl1.setFont(font);
+	pl1.setString("PLAYER 2");
+	pl1.setCharacterSize(30);
+	pl1.setFillColor(Color::Black);
+	pl1.setPosition(490,30);
+	
+	Text pl2;
+	pl2.setFont(font);
+	pl2.setString("PLAYER 1");
+	pl2.setCharacterSize(30);
+	pl2.setFillColor(Color::Black);
+	pl2.setPosition(490,380);
+				    
 	SoundBuffer moveself;// Am thanh cua moi nuoc di
 	moveself.loadFromFile("move-self.wav");
 	Sound sfx;
@@ -33,8 +47,8 @@ void WindowPlay(){
 	for(int i=0;i<32;i++) f[i].setTexture(t1);
 	Sprite sBoard(t2);
 	Sprite sBoard1(t3),back(t4),White(trang),Black(den);
-	White.setPosition(545,100);
-	Black.setPosition(545,100);
+	White.setPosition(545,213);
+	Black.setPosition(545,213);
 	back.setPosition(550,430);
 	loadPosition();
 	
@@ -137,6 +151,8 @@ void WindowPlay(){
 		window.draw(sBoard1);
 		window.draw(sBoard); /// ve ban co 
 		window.draw(turn);
+		window.draw(pl1);
+		window.draw(pl2);
 		window.draw(back);
 		if(demnuoc %2 == 0){
 			window.draw(White);
@@ -153,4 +169,5 @@ void WindowPlay(){
 	}
 	
 }
+
 

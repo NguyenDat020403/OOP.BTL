@@ -335,33 +335,53 @@ void GameManager::Play()
 	Image img1;
 	img1.loadFromFile("images/computericon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
-	Texture t1,t2,t3,t4,no,trang,den;
+	Texture t1,t2,t3,t4,no,iyou,ibot;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
 	t3.loadFromFile("images/a1.png"); // background
 	t4.loadFromFile("images/back2.png");
 	no.loadFromFile("images/no.png");
-	trang.loadFromFile("images/trang.png");
-	den.loadFromFile("images/den.png");
+	iyou.loadFromFile("images/iconPeople.png");
+	ibot.loadFromFile("images/iconRobot.png");
 	Font font;
 	if (!font.loadFromFile("font/rockston.ttf")){}
+	
 	Text turn;
 	turn.setFont(font);
 	turn.setString("TURN");
 	turn.setCharacterSize(40);
 	turn.setFillColor(Color::Black);
-	turn.setPosition(520,50);			    
+	turn.setPosition(520,165);
+	
+	Text bot;
+	bot.setFont(font);
+	bot.setString("BOT");
+	bot.setCharacterSize(30);
+	bot.setFillColor(Color::Black);
+	bot.setPosition(540,30);
+	
+	Text you;
+	you.setFont(font);
+	you.setString("YOU");
+	you.setCharacterSize(30);
+	you.setFillColor(Color::Black);
+	you.setPosition(540,380);
+			    
 	SoundBuffer moveself;// Am thanh cua moi nuoc di
 	moveself.loadFromFile("move-self.wav");
 	Sound sfx;
 	sfx.setBuffer(moveself);
-	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
-	Sprite sBoard1(t2),sBoard(t3);
-	Sprite sPositive(no),back(t4),White(trang),Black(den);
-	White.setPosition(545,100);
-	Black.setPosition(545,100);
+
+
+ 	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
+ 	Sprite sBoard1(t2),sBoard(t3);
+ 	Sprite sPositive(no),back(t4),IYOU(iyou),IBOT(ibot);
+	IYOU.setPosition(533,213);
+	IBOT.setPosition(533,213);
 	back.setPosition(550,430);
-	Create();//khoi tao
+ 	Create();//khoi tao
+
+	
 	int demnuoc=0;
 	bool LuotChoi=true;//luot choi : = true=> nguoi ... =false => may
 	Vector2f oldPos,newPos;// luu vi tri click lan1 va lan2
@@ -415,68 +435,36 @@ void GameManager::Play()
 			    int x=pos.x/size;   int y=pos.y/size;
 			    newPos=Vector2f(x*size,y*size)+offset;
 			    // new== 28 an vua -> youlose va ngc lai
-			    // new== 28 an vua -> youlose va ngc lai
-			    // new== 28 an vua -> youlose va ngc lai
-			    // new== 28 an vua -> youlose va ngc lai
-			    // new== 28 an vua -> youlose va ngc lai
-			    if (newPos==f[28].s.getPosition() ) {
-					Font font;
-					if (!font.loadFromFile("font/rockston.ttf"))
-					{
-					}
-					RenderWindow thongbao1(VideoMode(200, 100), "Thua roi!!!");
-					Text tb;
-					tb.setFont(font);
-					tb.setFillColor(sf::Color::Red);
-					tb.setString("You lose.");
-					tb.setCharacterSize(20);
-					tb.setPosition(60,40);
-					while(thongbao1.isOpen()){
-						Event temp;
-						while(thongbao1.pollEvent(temp)){
-							if (temp.type == Event::Closed)
-								thongbao1.close();
+			    if (f[28].s.getPosition()==Vector2f(-100,-100) ) {
+						RenderWindow ketqua(VideoMode(480,400),"Final Result");
+			            Image img1;
+			            img1.loadFromFile("images/iconKQ.png");
+			            ketqua.setIcon(52,52,img1.getPixelsPtr());
+						Texture pl1;	            
+			            pl1.loadFromFile("images/youlose.png");
+			            Sprite PL1(pl1);
+						while(ketqua.isOpen()){
+							Event temp;
+							while(ketqua.pollEvent(temp)){
+								if (temp.type == Event::Closed)
+									ketqua.close();
 							}
-							thongbao1.clear();
-							thongbao1.draw(tb);
-							thongbao1.display();
+							ketqua.clear();
+							ketqua.draw(PL1);
+							ketqua.display();
 							sleep(1);
+							ketqua.close();
 							window.close();
 						}
-						
 			
-						
-		 	}else if (newPos==f[4].s.getPosition() ) {
-				Font font;
-				if (!font.loadFromFile("font/rockston.ttf"))
-				{
-				}
-				RenderWindow thongbao1(VideoMode(200, 100), "Thua roi!!!");
-				Text tb;
-				tb.setFont(font);
-				tb.setFillColor(sf::Color::Red);
-				tb.setString("You win.");
-				tb.setCharacterSize(20);
-				tb.setPosition(60,40);
-				while(thongbao1.isOpen()){
-					Event temp;
-					while(thongbao1.pollEvent(temp)){
-						if (temp.type == Event::Closed)
-							thongbao1.close();
-						}
-						thongbao1.clear();
-						thongbao1.draw(tb);
-						thongbao1.display();
-						sleep(1);
-						thongbao1.close();
-						window.close();
-					}
-								
-		 	}
+				
+							
+			 			}
   		  //chi di chuyen trong vung positiveMove
 			    for(int i=0;i<count;i++)
 			    {
 			    	if (positiveMove[i]==newPos){
+				    	
 				      	move(n,oldPos,newPos);
 				      	LuotChoi=!LuotChoi; 
 				      	demnuoc++;
@@ -491,8 +479,34 @@ void GameManager::Play()
 		{
 		  	sleep(1.5);
 			newPos= getNextMove(LuotChoi);
-			int c=nS.top();   nS.pop();//lay dk thong tin roi xoa di
-			oldPos=posS.top();  posS.pop();//vi ham move tu nhet trong stack roi
+			
+			int c=nS.top();   
+			nS.pop();//lay dk thong tin roi xoa di
+			oldPos=posS.top();
+			if (f[4].s.getPosition() == Vector2f(-100,-100) ) {
+					RenderWindow ketqua(VideoMode(480,259),"Final Result");
+		            Image img1;
+		            img1.loadFromFile("images/iconKQ.png");
+		            ketqua.setIcon(52,52,img1.getPixelsPtr());
+					Texture pl1;	            
+		            pl1.loadFromFile("images/win1.png");
+		            Sprite PL1(pl1);
+					while(ketqua.isOpen()){
+						Event temp;
+						while(ketqua.pollEvent(temp)){
+							if (temp.type == Event::Closed)
+								ketqua.close();
+						}
+						ketqua.clear();
+						ketqua.draw(PL1);
+						ketqua.display();
+						sleep(1);
+						ketqua.close();
+						window.close();
+					}
+								
+		 	}
+			posS.pop();//vi ham move tu nhet trong stack roi
 			move(c,oldPos,newPos);
 			LuotChoi=!LuotChoi;
 			demnuoc++;
@@ -505,10 +519,12 @@ void GameManager::Play()
 		window.draw(sBoard);
 		window.draw(sBoard1); /// ve ban co 
 		window.draw(turn);
+		window.draw(you);
+		window.draw(bot);
 		if(demnuoc %2 == 0){
-			window.draw(White);
+			window.draw(IYOU);
 		}else{
-			window.draw(Black);
+			window.draw(IBOT);
 		}
 		window.draw(back);
 		for(int i=0;i<count;i++){
