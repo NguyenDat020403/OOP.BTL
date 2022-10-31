@@ -419,7 +419,7 @@ void GameManager::Play()
 			    // new== 28 an vua -> youlose va ngc lai
 			    // new== 28 an vua -> youlose va ngc lai
 			    // new== 28 an vua -> youlose va ngc lai
-			    if (newPos==f[28].s.getPosition()) {
+			    if (newPos==f[28].s.getPosition() ) {
 					Font font;
 					if (!font.loadFromFile("font/rockston.ttf"))
 					{
@@ -446,7 +446,7 @@ void GameManager::Play()
 						
 			
 						
-		 	}else if (newPos==f[4].s.getPosition()) {
+		 	}else if (newPos==f[4].s.getPosition() ) {
 				Font font;
 				if (!font.loadFromFile("font/rockston.ttf"))
 				{
