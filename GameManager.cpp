@@ -335,53 +335,33 @@ void GameManager::Play()
 	Image img1;
 	img1.loadFromFile("images/computericon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
-	Texture t1,t2,t3,t4,no,iyou,ibot;
+	Texture t1,t2,t3,t4,no,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
 	t3.loadFromFile("images/a1.png"); // background
 	t4.loadFromFile("images/back2.png");
 	no.loadFromFile("images/no.png");
-	iyou.loadFromFile("images/iconPeople.png");
-	ibot.loadFromFile("images/iconRobot.png");
+	trang.loadFromFile("images/trang.png");
+	den.loadFromFile("images/den.png");
 	Font font;
 	if (!font.loadFromFile("font/rockston.ttf")){}
-	
 	Text turn;
 	turn.setFont(font);
 	turn.setString("TURN");
 	turn.setCharacterSize(40);
 	turn.setFillColor(Color::Black);
-	turn.setPosition(520,165);
-	
-	Text bot;
-	bot.setFont(font);
-	bot.setString("BOT");
-	bot.setCharacterSize(30);
-	bot.setFillColor(Color::Red);
-	bot.setPosition(540,30);
-	
-	Text you;
-	you.setFont(font);
-	you.setString("YOU");
-	you.setCharacterSize(30);
-	you.setFillColor(Color::Red);
-	you.setPosition(540,380);
-			    
+	turn.setPosition(520,50);			    
 	SoundBuffer moveself;// Am thanh cua moi nuoc di
 	moveself.loadFromFile("move-self.wav");
 	Sound sfx;
 	sfx.setBuffer(moveself);
-
-
- for(int i=0;i<32;i++) f[i].s.setTexture(t1);
- Sprite sBoard1(t2),sBoard(t3);
- Sprite sPositive(no),back(t4),IYOU(iyou),IBOT(ibot);
-IYOU.setPosition(533,213);
-	IBOT.setPosition(533,213);
+	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
+	Sprite sBoard1(t2),sBoard(t3);
+	Sprite sPositive(no),back(t4),White(trang),Black(den);
+	White.setPosition(545,100);
+	Black.setPosition(545,100);
 	back.setPosition(550,430);
- Create();//khoi tao
-
-	
+	Create();//khoi tao
 	int demnuoc=0;
 	bool LuotChoi=true;//luot choi : = true=> nguoi ... =false => may
 	Vector2f oldPos,newPos;// luu vi tri click lan1 va lan2
@@ -463,7 +443,7 @@ IYOU.setPosition(533,213);
 							sleep(1);
 							window.close();
 						}
-		
+						
 			
 						
 		 	}else if (newPos==f[4].s.getPosition() ) {
@@ -525,12 +505,10 @@ IYOU.setPosition(533,213);
 		window.draw(sBoard);
 		window.draw(sBoard1); /// ve ban co 
 		window.draw(turn);
-		window.draw(you);
-		window.draw(bot);
 		if(demnuoc %2 == 0){
-			window.draw(IYOU);
+			window.draw(White);
 		}else{
-			window.draw(IBOT);
+			window.draw(Black);
 		}
 		window.draw(back);
 		for(int i=0;i<count;i++){

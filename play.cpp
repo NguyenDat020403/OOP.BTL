@@ -32,52 +32,32 @@ void move(string str)
     Vector2f newPos = toCoord(str[2],str[3]);
     for(int i=0;i<32;i++){
     	
-	    	if( newPos == f[4].getPosition()){
+	    	if( newPos == f[4].getPosition() || newPos == f[28].getPosition()){
 		     	Font font;
 				if (!font.loadFromFile("font/rockston.ttf"))
 				{
 				}
-		     	RenderWindow ketqua(VideoMode(480,259),"Final Result");
-	            Image img1;
-	            img1.loadFromFile("images/iconKQ.png");
-	            ketqua.setIcon(52,52,img1.getPixelsPtr());
-	            Texture pl2;	            
-	            pl2.loadFromFile("images/winner2.png");
-	            Sprite PL2(pl2);
-	            
-				while(ketqua.isOpen()){
+		     	RenderWindow thongbao(VideoMode(200, 100), "Thua roi!!!");
+		        Text tb;
+		        tb.setFont(font);
+				tb.setFillColor(sf::Color::Red);
+				tb.setString("You lose.");
+				tb.setCharacterSize(20);
+				tb.setPosition(60,40);
+				while(thongbao.isOpen()){
 					Event temp;
-					while(ketqua.pollEvent(temp)){
+					while(thongbao.pollEvent(temp)){
 						if (temp.type == Event::Closed)
-							ketqua.close();
+							thongbao.close();
 					}
-					ketqua.clear();
-					ketqua.draw(PL2);
-					ketqua.display();
+					thongbao.clear();
+					thongbao.draw(tb);
+					thongbao.display();
 				}
 				break;
 			}
-			else if(newPos == f[28].getPosition()){
-				RenderWindow ketqua(VideoMode(480,259),"Final Result");
-	            Image img1;
-	            img1.loadFromFile("images/iconKQ.png");
-	            ketqua.setIcon(52,52,img1.getPixelsPtr());
-				Texture pl1;	            
-	            pl1.loadFromFile("images/winner1.png");
-	            Sprite PL1(pl1);
-	
-				while(ketqua.isOpen()){
-					Event temp;
-					while(ketqua.pollEvent(temp)){
-						if (temp.type == Event::Closed)
-							ketqua.close();
-					}
-					ketqua.clear();
-					ketqua.draw(PL1);
-					ketqua.display();
-				}
-				break;
-			}
+		//returen
+	}
     for(int i=0;i<32;i++)
     	if (f[i].getPosition()==newPos) f[i].setPosition(-100,-100);
 	for(int i=0;i<32;i++){
@@ -91,7 +71,6 @@ void move(string str)
     if (str=="e8g8") if (position.find("e8")==-1) move("h8f8");
     if (str=="e1c1") if (position.find("e1")==-1) move("a1d1");
     if (str=="e8c8") if (position.find("e8")==-1) move("a8d8");
-}
 }
 void loadPosition()
 {
@@ -112,7 +91,6 @@ void loadPosition()
     for(int i=0;i<position.length();i+=5)
       move(position.substr(i,4));
 }
-
 
 
 
