@@ -335,12 +335,14 @@ void GameManager::Play()
 	Image img1;
 	img1.loadFromFile("images/computericon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
-	Texture t1,t2,t3,t4,no,iyou,ibot;
+	Texture t1,t2,t3,t4,no,iyou,ibot,trang,den;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
 	t3.loadFromFile("images/a1.png"); // background
 	t4.loadFromFile("images/back2.png");
 	no.loadFromFile("images/no.png");
+	trang.loadFromFile("images/trang.png");
+	den.loadFromFile("images/den.png");
 	iyou.loadFromFile("images/iconPeople.png");
 	ibot.loadFromFile("images/iconRobot.png");
 	Font font;
@@ -375,7 +377,7 @@ void GameManager::Play()
 
  	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
  	Sprite sBoard1(t2),sBoard(t3);
- 	Sprite sPositive(no),back(t4),IYOU(iyou),IBOT(ibot);
+ 	Sprite sPositive(no),back(t4),IYOU(iyou),IBOT(ibot),BLACK(den),WHITE(trang);
 	IYOU.setPosition(533,213);
 	IBOT.setPosition(533,213);
 	back.setPosition(550,430);
@@ -521,11 +523,7 @@ void GameManager::Play()
 		window.draw(turn);
 		window.draw(you);
 		window.draw(bot);
-		if(demnuoc %2 == 0){
-			window.draw(IYOU);
-		}else{
-			window.draw(IBOT);
-		}
+		
 		window.draw(back);
 		for(int i=0;i<count;i++){
 		   	sPositive.setPosition(positiveMove[i]);
@@ -533,6 +531,11 @@ void GameManager::Play()
 		}
 		for(int i=0;i<32;i++) {
 		   	window.draw(f[i].s);
+		}
+		if(demnuoc %2 == 0){
+			window.draw(IYOU);
+		}else{
+			window.draw(IBOT);
 		}
 		  	window.display();
 	}
