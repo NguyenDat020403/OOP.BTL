@@ -32,7 +32,7 @@ void move(string str)
     Vector2f newPos = toCoord(str[2],str[3]);
     for(int i=0;i<32;i++){
     	
-	    	if( newPos == f[4].getPosition()){
+	    	if( f[4].getPosition()  == newPos && f[4].getPosition()  !=oldPos){
 		     	Font font;
 				if (!font.loadFromFile("font/rockston.ttf"))
 				{
@@ -57,7 +57,7 @@ void move(string str)
 				}
 				break;
 			}
-			else if(newPos == f[28].getPosition()){
+			else if( f[28].getPosition() == newPos && f[28].getPosition()  !=oldPos){
 				RenderWindow ketqua(VideoMode(480,259),"Final Result");
 	            Image img1;
 	            img1.loadFromFile("images/iconKQ.png");

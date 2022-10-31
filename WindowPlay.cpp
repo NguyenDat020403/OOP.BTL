@@ -108,7 +108,7 @@ void WindowPlay(){
 					move(str); 
 
 					if (oldPos!=newPos) position+=str+" ";
-
+					else demnuoc--;
 					f[n].setPosition(newPos);         
 					sfx.play();  
 					//turn

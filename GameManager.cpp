@@ -56,7 +56,53 @@ void GameManager::IncreasePositive(int i,int j){
 
 void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
 { 
-
+	 for(int i=0;i<32;i++){
+ 		if (f[28].s.getPosition()==newPos ) {
+						f[28].s.setPosition(-100,-100);
+						RenderWindow ketqua(VideoMode(480,400),"Final Result");
+			            Image img1;
+			            img1.loadFromFile("images/iconKQ.png");
+			            ketqua.setIcon(52,52,img1.getPixelsPtr());
+						Texture pl1;	            
+			            pl1.loadFromFile("images/youlose.png");
+			            Sprite PL1(pl1);
+						while(ketqua.isOpen()){
+							Event temp;
+							while(ketqua.pollEvent(temp)){
+								if (temp.type == Event::Closed)
+									ketqua.close();
+									
+									break;
+							}
+							ketqua.clear();
+							ketqua.draw(PL1);
+							ketqua.display();
+						}
+						
+			 	}
+		else if (f[4].s.getPosition() == newPos ) {
+					f[4].s.setPosition(-100,-100);
+					RenderWindow ketqua(VideoMode(480,259),"Final Result");
+		            Image img1;
+		            img1.loadFromFile("images/iconKQ.png");
+		            ketqua.setIcon(52,52,img1.getPixelsPtr());
+					Texture pl1;	            
+		            pl1.loadFromFile("images/win1.png");
+		            Sprite PL1(pl1);
+					while(ketqua.isOpen()){
+						Event temp;
+						while(ketqua.pollEvent(temp)){
+							if (temp.type == Event::Closed)
+								ketqua.close();
+								break;
+						}
+						ketqua.clear();
+						ketqua.draw(PL1);
+						ketqua.display();
+					}
+						
+			}
+	}
  posS.push(oldPos);
  posS.push(newPos);
  nS.push(n);
@@ -74,17 +120,22 @@ void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
   f[n].cost=-90;
   f[n].s.setTextureRect(IntRect( 3*size,0,size,size));
  }
+
+ 				
  //di chuyen em an vao vi tri moi 
  for(int i=0;i<32;i++){
-  if (f[i].s.getPosition()==newPos) {
-   f[i].s.setPosition(-100,-100);//di chuyen em bi an ra khoi man hinh
-   posS.push(newPos);
-   posS.push(Vector2f(-100,-100));
-   nS.push(i);
-   break;//neu ta dat f[n].s.setPosition(newPos) len truoc ma ko co break=> bi mat not con nay
-  }
+		
+	  if (f[i].s.getPosition()==newPos) {
+	   f[i].s.setPosition(-100,-100);//di chuyen em bi an ra khoi man hinh
+	   posS.push(newPos);
+	   posS.push(Vector2f(-100,-100));
+	   nS.push(i);
+	   break;//neu ta dat f[n].s.setPosition(newPos) len truoc ma ko co break=> bi mat not con nay
+	  }
  }
  f[n].s.setPosition(newPos);
+
+ 
 }
 
 void GameManager::Undo()
@@ -436,32 +487,7 @@ void GameManager::Play()
 			    f[n].s.setColor(Color::White);
 			    int x=pos.x/size;   int y=pos.y/size;
 			    newPos=Vector2f(x*size,y*size)+offset;
-			    // new== 28 an vua -> youlose va ngc lai
-			    if (f[28].s.getPosition()==Vector2f(-100,-100) ) {
-						RenderWindow ketqua(VideoMode(480,400),"Final Result");
-			            Image img1;
-			            img1.loadFromFile("images/iconKQ.png");
-			            ketqua.setIcon(52,52,img1.getPixelsPtr());
-						Texture pl1;	            
-			            pl1.loadFromFile("images/youlose.png");
-			            Sprite PL1(pl1);
-						while(ketqua.isOpen()){
-							Event temp;
-							while(ketqua.pollEvent(temp)){
-								if (temp.type == Event::Closed)
-									ketqua.close();
-							}
-							ketqua.clear();
-							ketqua.draw(PL1);
-							ketqua.display();
-							sleep(1);
-							ketqua.close();
-							window.close();
-						}
-			
-				
-							
-			 			}
+			    
   		  //chi di chuyen trong vung positiveMove
 			    for(int i=0;i<count;i++)
 			    {
@@ -485,29 +511,6 @@ void GameManager::Play()
 			int c=nS.top();   
 			nS.pop();//lay dk thong tin roi xoa di
 			oldPos=posS.top();
-			if (f[4].s.getPosition() == Vector2f(-100,-100) ) {
-					RenderWindow ketqua(VideoMode(480,259),"Final Result");
-		            Image img1;
-		            img1.loadFromFile("images/iconKQ.png");
-		            ketqua.setIcon(52,52,img1.getPixelsPtr());
-					Texture pl1;	            
-		            pl1.loadFromFile("images/win1.png");
-		            Sprite PL1(pl1);
-					while(ketqua.isOpen()){
-						Event temp;
-						while(ketqua.pollEvent(temp)){
-							if (temp.type == Event::Closed)
-								ketqua.close();
-						}
-						ketqua.clear();
-						ketqua.draw(PL1);
-						ketqua.display();
-						sleep(1);
-						ketqua.close();
-						window.close();
-					}
-								
-		 	}
 			posS.pop();//vi ham move tu nhet trong stack roi
 			move(c,oldPos,newPos);
 			LuotChoi=!LuotChoi;
