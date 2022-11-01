@@ -56,55 +56,13 @@ void GameManager::IncreasePositive(int i,int j){
 
 void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
 { 
-	 for(int i=0;i<32;i++){
- 		if (f[28].s.getPosition()==newPos ) {
-						f[28].s.setPosition(-100,-100);
-						RenderWindow ketqua(VideoMode(480,400),"Final Result");
-			            Image img1;
-			            img1.loadFromFile("images/iconKQ.png");
-			            ketqua.setIcon(52,52,img1.getPixelsPtr());
-						Texture pl1;	            
-			            pl1.loadFromFile("images/youlose.png");
-			            Sprite PL1(pl1);
-						while(ketqua.isOpen()){
-							Event temp;
-							while(ketqua.pollEvent(temp)){
-								if (temp.type == Event::Closed)
-									ketqua.close();
-									
-									break;
-							}
-							ketqua.clear();
-							ketqua.draw(PL1);
-							ketqua.display();
-						}
-						
-			 	}
-		else if (f[4].s.getPosition() == newPos ) {
-					f[4].s.setPosition(-100,-100);
-					RenderWindow ketqua(VideoMode(480,259),"Final Result");
-		            Image img1;
-		            img1.loadFromFile("images/iconKQ.png");
-		            ketqua.setIcon(52,52,img1.getPixelsPtr());
-					Texture pl1;	            
-		            pl1.loadFromFile("images/win1.png");
-		            Sprite PL1(pl1);
-					while(ketqua.isOpen()){
-						Event temp;
-						while(ketqua.pollEvent(temp)){
-							if (temp.type == Event::Closed)
-								ketqua.close();
-								break;
-						}
-						ketqua.clear();
-						ketqua.draw(PL1);
-						ketqua.display();
-					}
-						
-			}
-	}
+	
+	
  posS.push(oldPos);
  posS.push(newPos);
+  
+
+	
  nS.push(n);
  int y=int((newPos-offset).y/size);//kiem tra xem co phong hau hay khong
  //phong hau cho tot
@@ -134,7 +92,7 @@ void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
 	  }
  }
  f[n].s.setPosition(newPos);
-
+ 					
  
 }
 
@@ -459,6 +417,12 @@ void GameManager::Play()
 			    {
 			     	pos = Mouse::getPosition(window) - Vector2i(offset);
 			     	click++;
+			     	Vector2i posPlay = Mouse::getPosition(window);
+					if(posPlay.x>550 && posPlay.x <620 && posPlay.y >430 && posPlay.y <500){
+						
+						window.close();
+									
+					}	
 			    }     
 		}
 		if(LuotChoi==true)
@@ -495,13 +459,62 @@ void GameManager::Play()
 				    	
 				      	move(n,oldPos,newPos);
 				      	LuotChoi=!LuotChoi; 
+						 
+				      	
 				      	demnuoc++;
 			  		}
 			    }
 				    //reset
 				    count=0;
 				    click=0;
-			} 
+				    
+			} if ( f[4].s.getPosition() == Vector2f(-100,-100)) {
+					RenderWindow ketqua(VideoMode(477 ,285),"Final Result");
+		            Image img1;
+		            img1.loadFromFile("images/iconKQ.png");
+		            ketqua.setIcon(52,52,img1.getPixelsPtr());
+					Texture pl1;	            
+		            pl1.loadFromFile("images/win1.png");
+		            Sprite PL1(pl1);
+					while(ketqua.isOpen()){
+						Event temp;
+						while(ketqua.pollEvent(temp)){
+							if (temp.type == Event::Closed)
+								ketqua.close();
+								break;
+						}
+						ketqua.clear();
+						ketqua.draw(PL1);
+						ketqua.display();
+						sleep(1);
+						ketqua.close();
+						window.close();
+					}
+						
+			}
+			if ( f[28].s.getPosition() == Vector2f(-100,-100)){
+							RenderWindow ketqua(VideoMode(477 ,285),"Final Result");
+				            Image img1;
+				            img1.loadFromFile("images/iconKQ.png");
+				            ketqua.setIcon(52,52,img1.getPixelsPtr());
+							Texture pl1;	            
+				            pl1.loadFromFile("images/youlose.png");
+				            Sprite PL1(pl1);
+							while(ketqua.isOpen()){
+								Event temp;
+								while(ketqua.pollEvent(temp)){
+									if (temp.type == Event::Closed)
+										ketqua.close();
+								}
+								ketqua.clear();
+								ketqua.draw(PL1);
+								ketqua.display();
+								sleep(1);
+								ketqua.close();
+								window.close();
+							}
+							
+						}
 		}
 		else  //computer moving
 		{

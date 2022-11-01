@@ -39,6 +39,7 @@ int main()
 				if(event.mouseButton.button== Mouse::Left){
 						Vector2i posMenu = Mouse::getPosition(window);
 						if(posMenu.x >225 &&  posMenu.x < 470 && posMenu.y >126 && posMenu.y < 166 ){
+							menu.MoveUp();
 							WindowPlay();
 						}
 						if(posMenu.x >245 &&  posMenu.x < 430 && posMenu.y >252 && posMenu.y < 312 ){
