@@ -30,56 +30,11 @@ void move(string str)
 {
     Vector2f oldPos = toCoord(str[0],str[1]);
     Vector2f newPos = toCoord(str[2],str[3]);
-    for(int i=0;i<32;i++){
-    	
-	    	if( f[4].getPosition()  == newPos && f[4].getPosition()  !=oldPos){
-		     	Font font;
-				if (!font.loadFromFile("font/rockston.ttf"))
-				{
-				}
-		     	RenderWindow ketqua(VideoMode(480,259),"Final Result");
-	            Image img1;
-	            img1.loadFromFile("images/iconKQ.png");
-	            ketqua.setIcon(52,52,img1.getPixelsPtr());
-	            Texture pl2;	            
-	            pl2.loadFromFile("images/winner1.png");
-	            Sprite PL2(pl2);
-	            
-				while(ketqua.isOpen()){
-					Event temp;
-					while(ketqua.pollEvent(temp)){
-						if (temp.type == Event::Closed)
-							ketqua.close();
-					}
-					ketqua.clear();
-					ketqua.draw(PL2);
-					ketqua.display();
-				}
-				break;
-			}
-			else if( f[28].getPosition() == newPos && f[28].getPosition()  !=oldPos){
-				RenderWindow ketqua(VideoMode(480,259),"Final Result");
-	            Image img1;
-	            img1.loadFromFile("images/iconKQ.png");
-	            ketqua.setIcon(52,52,img1.getPixelsPtr());
-				Texture pl1;	            
-	            pl1.loadFromFile("images/winner2.png");
-	            Sprite PL1(pl1);
-	
-				while(ketqua.isOpen()){
-					Event temp;
-					while(ketqua.pollEvent(temp)){
-						if (temp.type == Event::Closed)
-							ketqua.close();
-					}
-					ketqua.clear();
-					ketqua.draw(PL1);
-					ketqua.display();
-				}
-				break;
-			}
+    
+		//an quan
     for(int i=0;i<32;i++)
     	if (f[i].getPosition()==newPos) f[i].setPosition(-100,-100);
+    	//di chuyen
 	for(int i=0;i<32;i++){
 	    if (f[i].getPosition()==oldPos){
 	    	f[i].setPosition(newPos);
@@ -87,11 +42,11 @@ void move(string str)
     }
     
     //castling       //if the king didn't move
-    if (str=="e1g1") if (position.find("e1")==-1) move("h1f1"); 
-    if (str=="e8g8") if (position.find("e8")==-1) move("h8f8");
-    if (str=="e1c1") if (position.find("e1")==-1) move("a1d1");
-    if (str=="e8c8") if (position.find("e8")==-1) move("a8d8");
-}
+//    if (str=="e1g1") if (position.find("e1")==-1 ) move("h1f1"); 
+//    if (str=="e8g8") if (position.find("e8")==-1) move("h8f8");
+//    if (str=="e1c1") if (position.find("e1")==-1) move("a1d1");
+//    if (str=="e8c8") if (position.find("e8")==-1) move("a8d8");
+	
 }
 void loadPosition()
 {

@@ -2,8 +2,7 @@
 #include "GameManager.h"
 
 void WindowPlay(){
-//Dong cua so Menu tao ra cua so moi - Cua so "Play"
-	RenderWindow window(VideoMode(650, 504), "The Chess!");
+	RenderWindow window(VideoMode(650, 504), "The Chess!");  // tao cua so moi 
 	Image img1;
 	img1.loadFromFile("images/playicon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
@@ -104,7 +103,67 @@ void WindowPlay(){
 					newPos = Vector2f( size*int(p.x/size), size*int(p.y/size) );
 
 					str = toChessNote(oldPos)+toChessNote(newPos);
-
+					for(int i=0;i<32;i++){
+		    	
+			    	if( f[4].getPosition()  == newPos && f[4].getPosition()  !=oldPos){
+				     	Font font;
+						if (!font.loadFromFile("font/rockston.ttf"))
+						{
+						}
+				     	RenderWindow ketqua(VideoMode(480,259),"Final Result");
+			            Image img1;
+			            img1.loadFromFile("images/iconKQ.png");
+			            ketqua.setIcon(52,52,img1.getPixelsPtr());
+			            Texture pl2;	            
+			            pl2.loadFromFile("images/winner1.png");
+			            Sprite PL2(pl2);
+			            
+						while(ketqua.isOpen()){
+							Event temp;
+							while(ketqua.pollEvent(temp)){
+								if (temp.type == Event::Closed)
+									ketqua.close();
+							}
+							ketqua.clear();
+							ketqua.draw(PL2);
+							ketqua.display();
+							sleep(2);
+							ketqua.close();
+							for(int i=0;i<32;i++) f[i].setTexture(t1);
+							loadPosition();
+							window.close();	
+							
+						}
+						break;
+					}
+					else if( f[28].getPosition() == newPos && f[28].getPosition()  !=oldPos){
+						RenderWindow ketqua(VideoMode(480,259),"Final Result");
+			            Image img1;
+			            img1.loadFromFile("images/iconKQ.png");
+			            ketqua.setIcon(52,52,img1.getPixelsPtr());
+						Texture pl1;	            
+			            pl1.loadFromFile("images/winner2.png");
+			            Sprite PL1(pl1);
+			
+						while(ketqua.isOpen()){
+							Event temp;
+							while(ketqua.pollEvent(temp)){
+								if (temp.type == Event::Closed)
+									ketqua.close();
+							}
+							ketqua.clear();
+							ketqua.draw(PL1);
+							ketqua.display();
+							sleep(2);
+							ketqua.close();
+							for(int i=0;i<32;i++) f[i].setTexture(t1);
+							loadPosition();
+							window.close();	
+							
+						}
+						break;
+					}
+					}
 					move(str); 
 
 					if (oldPos!=newPos) position+=str+" ";
@@ -122,6 +181,7 @@ void WindowPlay(){
 				break;
 			}
 		}
+		//back
 		if (event.type == Event::MouseButtonPressed){
 			if (event.mouseButton.button == Mouse::Left){
 					

@@ -1,126 +1,117 @@
 #include "GameManager.h"
+//ai
 int GameManager::Alpha_Beta(int depth,bool luot,int alpha,int beta)
 {
- if(depth==0){
-  return CostMove();
- }
- Vector2f positiveMovetemp[32];//luu lai vi tri cac nuoc co the di
- if(luot==true){
-  int bestMove=-10000;//gia cua bestMove ban dau
-  for(int j=16;j<32;j++)//cac quan cua nguoi choi
-  {
-   if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
-   PositiveMoving(j);
-   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
-   positiveCount=0;
-   for (int i = 0; i < coun; i++)  positiveMovetemp[i]=positiveMove[i];  
-   for(int i=0;i<coun;i++)
-   {
-    move(j,f[j].s.getPosition(),positiveMovetemp[i]);
-    bestMove=max(bestMove,Alpha_Beta(depth-1,!luot,alpha,beta));
-    //undo
-    Undo();
-    alpha=max(alpha,bestMove);
-    if(beta<=alpha)  return bestMove;
-   }
-  }
-  return bestMove;
- }
- else {
-  int bestMove=10000;//gia cua bestMove ban dau
-  for(int j=0;j<16;j++)//quan cua may
-  {
-   if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
-   PositiveMoving(j);
-   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
-   positiveCount=0;
-   for (int i = 0; i < coun; i++)  positiveMovetemp[i]=positiveMove[i];  
-   for(int i=0;i<coun;i++)
-   {
-    move(j,f[j].s.getPosition(),positiveMovetemp[i]);
-    bestMove=min(bestMove,Alpha_Beta(depth-1,!luot,alpha,beta));
-    //undo
-    Undo();
-    beta=min(beta,bestMove);
-    if(beta<=alpha)  return bestMove;
-   }
-  }
-  return bestMove;
- }
+	if(depth==0){
+	  	return CostMove();
+	}
+ 	Vector2f positiveMovetemp[32];//luu lai vi tri cac nuoc co the di
+	 	if(luot==true){
+	  	int bestMove=-10000;//gia cua bestMove ban dau
+	  	for(int j=16;j<32;j++)//cac quan cua nguoi choi
+	  	{
+	   		if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
+	   		PositiveMoving(j);
+		   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
+		   positiveCount=0;
+		   for (int i = 0; i < coun; i++)  positiveMovetemp[i]=positiveMove[i];  
+		   for(int i=0;i<coun;i++)
+		   {
+		    move(j,f[j].s.getPosition(),positiveMovetemp[i]);
+		    bestMove=max(bestMove,Alpha_Beta(depth-1,!luot,alpha,beta));
+		    //undo
+		    Undo();
+		    alpha=max(alpha,bestMove);
+		    if(beta<=alpha)  return bestMove;
+		   }
+	  	}
+	  	return bestMove;
+	 	}
+ 	else {
+		int bestMove=10000;//gia cua bestMove ban dau
+		for(int j=0;j<16;j++)//quan cua may
+	  	{
+		   if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
+		   PositiveMoving(j);
+		   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
+		   positiveCount=0;
+		   for (int i = 0; i < coun; i++)  positiveMovetemp[i]=positiveMove[i];  
+		   for(int i=0;i<coun;i++)
+	   		{
+			    move(j,f[j].s.getPosition(),positiveMovetemp[i]);
+			    bestMove=min(bestMove,Alpha_Beta(depth-1,!luot,alpha,beta));
+			    //undo
+			    Undo();
+			    beta=min(beta,bestMove);
+			    if(beta<=alpha)  return bestMove;
+	   		}
+	  	}
+	 	 return bestMove;
+ 	}
 }
 
 void GameManager::IncreasePositive(int i,int j){
- positiveMove[positiveCount]=Vector2f(i*size,j*size)+offset;
- positiveCount++;
+	positiveMove[positiveCount]=Vector2f(i*size,j*size)+offset;
+	positiveCount++;
 }
 
 void GameManager::move(int n,Vector2f oldPos,Vector2f newPos)
 { 
-	
-	
- posS.push(oldPos);
- posS.push(newPos);
-  
-
-	
- nS.push(n);
- int y=int((newPos-offset).y/size);//kiem tra xem co phong hau hay khong
- //phong hau cho tot
- if(y==0 && f[n].index==6){
-  nS.push(100);//de ty undo xoa phong hau di
-  f[n].index=4;
-  f[n].cost=90;
-  f[n].s.setTextureRect(IntRect( 3*size,size,size,size));
- }
- if(y==7 && f[n].index==-6){
-  nS.push(-100);
-  f[n].index=-4;
-  f[n].cost=-90;
-  f[n].s.setTextureRect(IntRect( 3*size,0,size,size));
- }
-
- 				
- //di chuyen em an vao vi tri moi 
- for(int i=0;i<32;i++){
-		
-	  if (f[i].s.getPosition()==newPos) {
-	   f[i].s.setPosition(-100,-100);//di chuyen em bi an ra khoi man hinh
-	   posS.push(newPos);
-	   posS.push(Vector2f(-100,-100));
-	   nS.push(i);
-	   break;//neu ta dat f[n].s.setPosition(newPos) len truoc ma ko co break=> bi mat not con nay
-	  }
- }
- f[n].s.setPosition(newPos);
- 					
- 
+	posS.push(oldPos);
+	posS.push(newPos);
+  	nS.push(n);
+ 	int y=int((newPos-offset).y/size);//kiem tra xem co phong hau hay khong
+ 	//phong hau cho tot
+ 	if(y==0 && f[n].index==6){
+		nS.push(100);//de ty undo xoa phong hau di
+		f[n].index=4;
+		f[n].cost=90;
+		f[n].s.setTextureRect(IntRect( 3*size,size,size,size));
+ 	}
+ 	if(y==7 && f[n].index==-6){
+		nS.push(-100);
+		f[n].index=-4;
+		f[n].cost=-90;
+		f[n].s.setTextureRect(IntRect( 3*size,0,size,size));
+ 	}
+	//di chuyen em an vao vi tri moi 
+	for(int i=0;i<32;i++){
+			
+		if (f[i].s.getPosition()==newPos) {
+		   f[i].s.setPosition(-100,-100);//di chuyen em bi an ra khoi man hinh
+		   posS.push(newPos);
+		   posS.push(Vector2f(-100,-100));
+		   nS.push(i);
+		   break;//neu ta dat f[n].s.setPosition(newPos) len truoc ma ko co break=> bi mat not con nay
+		}
+	}
+ 	f[n].s.setPosition(newPos);
 }
 
 void GameManager::Undo()
 {
- int n= nS.top();
- nS.pop();
- Vector2f p=posS.top();//kiem tra xem co = (-100,-100) => day la con bi an
- posS.pop();
- Vector2f q=posS.top();
- posS.pop();
- if(n==100) {
-  n=nS.top();
-  nS.pop();
-  f[n].index=6;
-  f[n].cost=10;
-  f[n].s.setTextureRect(IntRect( 5*size,size,size,size));
- }
- if(n==-100){
-  n=nS.top();
-  nS.pop();
-  f[n].index=-6;
-  f[n].cost=-10;
-  f[n].s.setTextureRect(IntRect( 5*size,0,size,size));
- }
- f[n].s.setPosition(q);
-
- if(p==Vector2f(-100,-100))  Undo();// luc nay moi dy chuyen con an
+ 	int n= nS.top();
+ 	nS.pop();
+ 	Vector2f p=posS.top();//kiem tra xem co = (-100,-100) => day la con bi an
+ 	posS.pop();
+ 	Vector2f q=posS.top();
+ 	posS.pop();
+ 	if(n==100) {
+	  	n=nS.top();
+	  	nS.pop();
+	  	f[n].index=6;
+	  	f[n].cost=10;
+	  	f[n].s.setTextureRect(IntRect( 5*size,size,size,size));
+ 	}
+ 	if(n==-100){
+  		n=nS.top();
+  		nS.pop();
+  		f[n].index=-6;
+  		f[n].cost=-10;
+  		f[n].s.setTextureRect(IntRect( 5*size,0,size,size));
+ 	}
+ 	f[n].s.setPosition(q);
+ 	if(p==Vector2f(-100,-100))  Undo();// luc nay moi dy chuyen con an
 }
 
 void GameManager::Create()//gan gia tri can thiet vao danh sach Quan co

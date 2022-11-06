@@ -1,5 +1,6 @@
 #include "play.h"
 #include <unistd.h>
+//sleep(...);
 typedef struct
 {
  Sprite s;
@@ -14,7 +15,7 @@ public:
  stack<Vector2f> posS;//luu tru vi tri cac nuoc di
  stack<int> nS;//luu tru index cua quan di
 
- void move(int n,Vector2f oldPos,Vector2f newPos);//ham danh co
+ void move(int n,Vector2f oldPos,Vector2f newPos);//ham di chuyen
  void Undo();//ham quay lai
  void Create();
  void Play();// choi: moi thao tac o day

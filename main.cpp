@@ -7,7 +7,7 @@
 //
 int main()
 {
-	GameManager gm;
+	
  	
 	//Tao khung window hien thi menu
 	RenderWindow window(VideoMode(650, 504), "MENU");

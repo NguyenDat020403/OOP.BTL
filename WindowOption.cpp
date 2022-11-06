@@ -25,7 +25,7 @@ void WindowOption(){
 	int checkPeople=0,checkComputer=0;
 	
 	while(window1.isOpen()){   							//Khi cua so OPTION dang duoc mo ( isOpen() )
-	Event event1;										//Khai báo 1 biên' theo kieu? Event-> bat' su kien tu ban phim hoac chuot.	
+		Event event1;										//Khai báo 1 biên' theo kieu? Event-> bat' su kien tu ban phim hoac chuot.	
 		while(window1.pollEvent(event1)){				//pollEvent(event1): nhan. su kien vua duoc thuc hien (co the la chuot hoac ban phim) de? dua vao ham switch
 			Vector2i posOption = Mouse::getPosition(window1);	//Vector2i posOption: khai báo biên' posOption chua 2 gia tri (x,y) duoc nhan tu vi tri con tro chuot tren cua so Option
 			switch(event1.type){//Kiem tra su kien: event1 (co the la chuot hoac ban phim)
