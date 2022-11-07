@@ -46,7 +46,7 @@ void Menu::MoveUp()
 }
 void Menu::MoveDown()
 {
-	if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
+	if (selectedItemIndex + 1 < 2)
 	{
 		menu[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;

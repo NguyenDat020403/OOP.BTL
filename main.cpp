@@ -26,7 +26,7 @@ int main()
 	music.openFromFile("music/MenuMusic.wav");
 	//Bat su kien tu ban phim or chuot
 	music.play();
-	music.setVolume(20.f);
+	music.setVolume(200.f);
 	while (window.isOpen())
 	{
 		
@@ -39,12 +39,17 @@ int main()
 				if(event.mouseButton.button== Mouse::Left){
 						Vector2i posMenu = Mouse::getPosition(window);
 						if(posMenu.x >225 &&  posMenu.x < 470 && posMenu.y >126 && posMenu.y < 166 ){
-							menu.MoveUp();
-							WindowPlay();
+							
+									WindowPlay();
+									menu.MoveUp();
+							
+								
+									
 						}
 						if(posMenu.x >245 &&  posMenu.x < 430 && posMenu.y >252 && posMenu.y < 312 ){
-							menu.MoveDown();
-							WindowOption();
+								WindowOption();
+								menu.MoveDown();
+								
 						}
 						if(posMenu.x >275 &&  posMenu.x < 370 && posMenu.y >378 && posMenu.y < 438 ){
 							window.close();
