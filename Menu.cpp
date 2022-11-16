@@ -46,7 +46,7 @@ void Menu::MoveUp()
 }
 void Menu::MoveDown()
 {
-	if (selectedItemIndex + 1 < 2)
+	if (selectedItemIndex + 1 < 3)
 	{
 		menu[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;

@@ -2,10 +2,16 @@
 //ai
 int GameManager::Alpha_Beta(int depth,bool luot,int alpha,int beta)
 {
+	
 	if(depth==0){
 	  	return CostMove();
 	}
  	Vector2f positiveMovetemp[32];//luu lai vi tri cac nuoc co the di
+ 	
+ 	
+ 	
+ 	
+ 	
 	 	if(luot==true){
 	  	int bestMove=-10000;//gia cua bestMove ban dau
 	  	for(int j=16;j<32;j++)//cac quan cua nguoi choi
@@ -14,7 +20,11 @@ int GameManager::Alpha_Beta(int depth,bool luot,int alpha,int beta)
 	   		PositiveMoving(j);
 		   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
 		   positiveCount=0;
-		   for (int i = 0; i < coun; i++)  positiveMovetemp[i]=positiveMove[i];  
+		   
+		   for (int i = 0; i < coun; i++) {
+		   	positiveMovetemp[i]=positiveMove[i];  	   
+		   } 
+		   
 		   for(int i=0;i<coun;i++)
 		   {
 		    move(j,f[j].s.getPosition(),positiveMovetemp[i]);
@@ -32,6 +42,7 @@ int GameManager::Alpha_Beta(int depth,bool luot,int alpha,int beta)
 		for(int j=0;j<16;j++)//quan cua may
 	  	{
 		   if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
+		   
 		   PositiveMoving(j);
 		   int coun=positiveCount;//ta khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
 		   positiveCount=0;
@@ -45,7 +56,9 @@ int GameManager::Alpha_Beta(int depth,bool luot,int alpha,int beta)
 			    beta=min(beta,bestMove);
 			    if(beta<=alpha)  return bestMove;
 	   		}
+	   		
 	  	}
+	  	
 	 	 return bestMove;
  	}
 }
@@ -144,45 +157,47 @@ void GameManager::Create()//gan gia tri can thiet vao danh sach Quan co
 
 Vector2f GameManager::getNextMove(bool luot)
 {
- Vector2f oldPos,newPos,oldPostemp,newPostemp;// ta can tim vi tri co minimax nho nhat de ung voi may( quan den)
- int minimaxtemp=10000,minimax=10000;
- int count1,n;
- Vector2f positiveMovetemp[32];
-
- for(int i=0;i<16;i++)
- {
-  if(f[i].s.getPosition()==Vector2f(-100,-100)) continue;
-  //////
-  PositiveMoving(i);
-  count1=positiveCount;//khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
-  positiveCount=0;
-  ///set///
-  for (int k = 0; k < count1; k++) positiveMovetemp[k]=positiveMove[k];
-  //set oldPos va newPos  tam thoi
-  oldPostemp=f[i].s.getPosition();
-  //newPostemp=positiveMove[0];
-  for(int j=0;j<count1;j++)
-  {
-   move(i,oldPostemp,positiveMovetemp[j]);
-   int alpha=-9999,beta=9999;
-   int temp=Alpha_Beta(3,!luot,alpha,beta);
-   if(minimaxtemp>temp){
-    newPostemp=positiveMovetemp[j];
-    minimaxtemp=temp;
-   }
-   Undo();
-  }
-  if(minimax>minimaxtemp){
-   minimax=minimaxtemp;
-   oldPos=oldPostemp;
-   newPos=newPostemp;
-   n=i;
-  }
- }
- //lay cac thong tin nuoc di
- posS.push(oldPos);//luu tam o trong stack ty ra ngoai xoa di
- nS.push(n);
- return newPos;
+	 Vector2f oldPos,newPos,oldPostemp,newPostemp;// ta can tim vi tri co minimax nho nhat de ung voi may( quan den)
+	 int minimaxtemp=10000,minimax=10000;
+	 int count1,n;
+	 Vector2f positiveMovetemp[32];
+	
+	 for(int i=0;i<16;i++)
+	 {
+		  if(f[i].s.getPosition()==Vector2f(-100,-100)) continue;
+		  //////
+		  PositiveMoving(i);
+		  count1=positiveCount;//khong the dung PositiveCount vi no thay doi lien tuc khi ta de quy
+		  positiveCount=0;
+		  ///set///
+		  for (int k = 0; k < count1; k++) {
+		  	positiveMovetemp[k]=positiveMove[k];
+		  }
+		  //set oldPos va newPos  tam thoi
+		  oldPostemp=f[i].s.getPosition();
+			newPostemp=positiveMove[0];
+		  for(int j=0;j<count1;j++)
+		  {
+			   move(i,oldPostemp,positiveMovetemp[j]);
+			   int alpha=-9999,beta=9999;
+			   int temp=Alpha_Beta(3,!luot,alpha,beta);
+			   if(minimaxtemp>temp){
+				    newPostemp=positiveMovetemp[j];
+				    minimaxtemp=temp;
+			   }
+		  		Undo();
+		  }
+		  if(minimax>minimaxtemp){
+			   minimax=minimaxtemp;
+			   oldPos=oldPostemp;
+			   newPos=newPostemp;
+			   n=i;
+		  }
+ 	}
+	 //lay cac thong tin nuoc di
+	 posS.push(oldPos);//luu tam o trong stack ty ra ngoai xoa di
+	 nS.push(n);
+	 return newPos;
 }
 
 int GameManager::CostMove()// don gian con nao bi chet thi khong tinh diem cua con day
@@ -215,6 +230,7 @@ void GameManager::PositiveVua(int n,int x,int y,int grid[9][9])//xet 8 vi tri co
  if((grid[x-1][y-1]==0||grid[x][y]*grid[x-1][y-1]<0) && x-1>=0 && y-1>=0) IncreasePositive(x-1,y-1);
  if((grid[x+1][y-1]==0||grid[x][y]*grid[x+1][y-1]<0) && y-1>=0 && x+1<8)  IncreasePositive(x+1,y-1);
  if((grid[x][y-1]==0||grid[x][y]*grid[x][y-1]<0) && y-1>=0)     IncreasePositive(x,y-1);
+ 
 }
 
 void GameManager::PositiveMa(int n,int x,int y,int grid[9][9])//xet 8 vi tri co the di cua ma
@@ -233,10 +249,10 @@ void GameManager::PositiveTuong(int n,int x,int y,int grid[9][9])//tu vi tri (x,
 {
  for(int i=x+1,j=y+1;(i<8&&j<8);i++,j++)
  {
-  if(grid[i][j]!=0) {
-   if(grid[i][j]*grid[x][y]<0)  IncreasePositive(i,j);
-   break;
-  }
+  	if(grid[i][j]!=0) {
+   		if(grid[i][j]*grid[x][y]<0)  IncreasePositive(i,j);
+   		break;
+  	}
   IncreasePositive(i,j);
  }
  for(int i=x+1,j=y-1;(i<8&&j>=0);i++,j--)
@@ -303,39 +319,42 @@ void GameManager::PositiveXe(int n,int x,int y,int grid[9][9])//tu vi tri (x,y) 
 
 void GameManager::PositiveMoving(int n)
 {
- Vector2f pos=f[n].s.getPosition()-offset;
- int x=pos.x/size;
- int y=pos.y/size;
+	 Vector2f pos=f[n].s.getPosition()-offset;
+	 int x=pos.x/size;
+	 int y=pos.y/size;
+	
+	 int grid[9][9];//mang luoi(8x8) luu lai cac vi tri ban co:
+	 Vector2i vtri;
+	 for(int i=0;i<8;i++)
+	  	for(int j=0;j<8;j++)
+	  		 grid[i][j]=0;// neu khong co quan co nao o O nay thi =0
+	 for(int j=0;j<32;j++)
+	 {
+	  vtri=Vector2i( f[j].s.getPosition()-offset);
+	  grid[vtri.x/size][vtri.y/size]=f[j].index;// neu co = index cua quan co
+	 }
 
- int grid[9][9];//mang luoi(8x8) luu lai cac vi tri ban co:
- Vector2i vtri;
- for(int i=0;i<8;i++)
-  for(int j=0;j<8;j++)
-   grid[i][j]=0;// neu khong co quan co nao o O nay thi =0
- for(int j=0;j<32;j++)
- {
-  vtri=Vector2i( f[j].s.getPosition()-offset);
-  grid[vtri.x/size][vtri.y/size]=f[j].index;// neu co = index cua quan co
- }
-
- if(abs(f[n].index)==1)  PositiveXe(n,x,y,grid);//xe
- else if(abs(f[n].index)==2)  PositiveMa(n,x,y,grid);//ma
- else if(abs(f[n].index)==3)  PositiveTuong(n,x,y,grid);//tuong 
- else if(abs(f[n].index)==4)//hau: hop lai cac nuoc cua ca xe va tuong
- {
-  PositiveXe(n,x,y,grid);
-  PositiveTuong(n,x,y,grid);
- }
- else if(abs(f[n].index)==5)  PositiveVua(n,x,y,grid);//vua
- else   PositiveTot(n,x,y,grid); //tot
+	 if(abs(f[n].index)==1)  PositiveXe(n,x,y,grid);//xe
+	 else if(abs(f[n].index)==2)  PositiveMa(n,x,y,grid);//ma
+	 else if(abs(f[n].index)==3)  PositiveTuong(n,x,y,grid);//tuong 
+	 else if(abs(f[n].index)==4)//hau: hop lai cac nuoc cua ca xe va tuong
+	 {
+	  PositiveXe(n,x,y,grid);
+	  PositiveTuong(n,x,y,grid);
+	 }
+	 else if(abs(f[n].index)==5)  PositiveVua(n,x,y,grid);//vua
+	 else   PositiveTot(n,x,y,grid); //tot
 }
+
 void GameManager::Play()
 {
+
+
 	RenderWindow window(VideoMode(650, 504), "The Chess!");
 	Image img1;
 	img1.loadFromFile("images/computericon.png");
 	window.setIcon(50,50,img1.getPixelsPtr());
-	Texture t1,t2,t3,t4,no,iyou,ibot,trang,den;
+	Texture t1,t2,t3,t4,no,iyou,ibot,trang,den,checkmate;
 	t1.loadFromFile("images/figures.png"); // quan co
 	t2.loadFromFile("images/board.png"); // ban co
 	t3.loadFromFile("images/a1.png"); // background
@@ -343,6 +362,7 @@ void GameManager::Play()
 	no.loadFromFile("images/no.png");
 	trang.loadFromFile("images/trang.png");
 	den.loadFromFile("images/den.png");
+	checkmate.loadFromFile("images/checkmate.png");
 	iyou.loadFromFile("images/iconPeople.png");
 	ibot.loadFromFile("images/iconRobot.png");
 	Font font;
@@ -376,18 +396,20 @@ void GameManager::Play()
 
 
  	for(int i=0;i<32;i++) f[i].s.setTexture(t1);
- 	Sprite sBoard1(t2),sBoard(t3);
+ 	Sprite sBoard1(t2),sBoard(t3),CHECKMATE(checkmate);
  	Sprite sPositive(no),back(t4),IYOU(iyou),IBOT(ibot),BLACK(den),WHITE(trang);
 	IYOU.setPosition(533,213);
 	IBOT.setPosition(533,213);
 	back.setPosition(550,430);
+	CHECKMATE.setPosition(-200,-200);
  	Create();//khoi tao
 
 	
 	int demnuoc=0;
 	bool LuotChoi=true;//luot choi : = true=> nguoi ... =false => may
 	Vector2f oldPos,newPos;// luu vi tri click lan1 va lan2
-	int n=0,click=0,count=0;
+	int n=0,click=0,count=0,tempcount=0,check=0;
+	int count1,count2=0,count3=0,dem=0,count4=0,dem1=0;
 	Vector2i pos;//vitri chuot khi click
 	while (window.isOpen())
 	{
@@ -430,11 +452,11 @@ void GameManager::Play()
 					    oldPos=f[n].s.getPosition();
 				    }
 			    }
-			    if(!isMove)  click=0;
-			    else{
-					PositiveMoving(n);
-					count=positiveCount;
-					positiveCount=0;
+				if(!isMove)  click=0;
+				else{
+						PositiveMoving(n);
+						count=positiveCount;
+						positiveCount=0;
 				}
 	  		 }
 		   if(click==2)
@@ -447,19 +469,87 @@ void GameManager::Play()
 			    for(int i=0;i<count;i++)
 			    {
 			    	if (positiveMove[i]==newPos){
-				    	
-				      	move(n,oldPos,newPos);
+			    		if(check=1 &&n!=28 &&dem1==count3&&count3!=0 ){ // neu vua khong con nuoc di hop le thi thong bao cho nguoi choi
+						RenderWindow ketqua(VideoMode(477 ,285),"Final Result");
+						Image img1;
+						img1.loadFromFile("images/iconKQ.png");
+						ketqua.setIcon(52,52,img1.getPixelsPtr());
+						Texture pl1;	            
+						pl1.loadFromFile("images/kingcanmoveLose.png");
+						Sprite PL1(pl1);
+						while(ketqua.isOpen()){
+							Event temp;
+							while(ketqua.pollEvent(temp)){
+								if (temp.type == Event::Closed)
+									ketqua.close();
+									break;
+								}
+								ketqua.clear();
+								ketqua.draw(PL1);
+								ketqua.display();
+								sleep(1);
+								ketqua.close();
+								window.close();
+							}
+						}
+				      	move(n,oldPos,newPos);			      	
 				      	LuotChoi=!LuotChoi; 
-						 
-				      	
+						
+						CHECKMATE.setPosition(-200,-200);
+						
+							for(int i=16;i<32;i++){
+								if(f[i].s.getPosition()==Vector2f(-100,-100)) continue;
+								PositiveMoving(i);
+								count1=positiveCount;
+								positiveCount=0;
+							
+								for(int k=0;k<count1;k++){
+									if(positiveMove[k]==f[4].s.getPosition()){
+										CHECKMATE.setPosition(positiveMove[k]);
+										check=2;
+										break;
+									}	
+								}			
+							}
+							PositiveMoving(4);
+							count2=positiveCount;
+							Vector2f posiVuacheck[8];
+							positiveCount=0;
+							for(int i=0;i<count2;i++){
+								posiVuacheck[i]=positiveMove[i];
+							}
+							//test
+							
+								if(check==2 ){
+										for(int i=0;i<count2;i++){
+											for(int j=16;j<32;j++){
+												if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
+												PositiveMoving(j);
+												count1=positiveCount;
+												positiveCount=0;
+													if(posiVuacheck[i] != f[j].s.getPosition()){
+														for(int k=0;k<count1;k++){
+															if(positiveMove[k]==posiVuacheck[i]){
+																dem++;
+																break;
+															}	
+														}
+													}
+															
+											}
+									}
+								}	
 				      	demnuoc++;
 			  		}
+			  		
 			    }
 				    //reset
 				    count=0;
 				    click=0;
 				    
-			} if ( f[4].s.getPosition() == Vector2f(-100,-100)) {
+			} 
+							
+			if ( f[4].s.getPosition() == Vector2f(-100,-100)) {
 					RenderWindow ketqua(VideoMode(477 ,285),"Final Result");
 		            Image img1;
 		            img1.loadFromFile("images/iconKQ.png");
@@ -507,16 +597,88 @@ void GameManager::Play()
 							
 						}
 		}
+	
 		else  //computer moving
 		{
-		  	sleep(1.5);
+			
+		  	sleep(0);
 			newPos= getNextMove(LuotChoi);
 			
+			
+			CHECKMATE.setPosition(-200,-200);
+			
+	
 			int c=nS.top();   
 			nS.pop();//lay dk thong tin roi xoa di
 			oldPos=posS.top();
 			posS.pop();//vi ham move tu nhet trong stack roi
+			if(check==2 &&dem==count2&&count2!=0 &&  c!=4 ){
+				RenderWindow ketqua(VideoMode(477 ,285),"Final Result");
+				Image img1;
+				img1.loadFromFile("images/iconKQ.png");
+				ketqua.setIcon(52,52,img1.getPixelsPtr());
+				Texture pl1;	            
+				pl1.loadFromFile("images/winkingcanmove.png");
+				Sprite PL1(pl1);
+				while(ketqua.isOpen()){
+					Event temp;
+						while(ketqua.pollEvent(temp)){
+							if (temp.type == Event::Closed)
+									ketqua.close();
+								break;
+							}
+						ketqua.clear();
+						ketqua.draw(PL1);
+						ketqua.display();
+						sleep(1);
+						ketqua.close();
+						window.close();
+				}
+			}
 			move(c,oldPos,newPos);
+			
+			
+			//checkmate end - computer
+			for(int i=0;i<16;i++){
+				if(f[i].s.getPosition()==Vector2f(-100,-100)) continue; // kiem tra lan luot tung con, con nao k co tren ban co thi bo qua
+				PositiveMoving(i);
+				count3=positiveCount;
+				positiveCount=0;
+					
+				for(int k=0;k<count3;k++){
+						if(positiveMove[k]==f[28].s.getPosition()){
+							CHECKMATE.setPosition(positiveMove[k]);
+							check=1;
+							break;
+						}	
+				}
+			}
+			PositiveMoving(28);
+			count3=positiveCount;
+			Vector2f posiVuacheck[8];
+			positiveCount=0;
+			for(int i=0;i<count3;i++){
+				posiVuacheck[i]=positiveMove[i];
+			}
+			if(check==1){			// khi vua bi chieu' thi kiem tra xem vua con nuoc di nao hop le hay khong
+					for(int i=0;i<count3;i++){
+						for(int j=0;j<16;j++){
+							if(f[j].s.getPosition()==Vector2f(-100,-100)) continue;
+							PositiveMoving(j);
+							count4=positiveCount;
+							positiveCount=0;
+							if(posiVuacheck[i] != f[j].s.getPosition())	{
+								for(int k=0;k<count4;k++){
+									if(positiveMove[k]==posiVuacheck[i] ){
+										dem1++;
+										break;
+									}	
+								}
+							}		
+										
+						}
+					}				
+			}
 			LuotChoi=!LuotChoi;
 			demnuoc++;
 			//reset 
@@ -530,7 +692,6 @@ void GameManager::Play()
 		window.draw(turn);
 		window.draw(you);
 		window.draw(bot);
-		
 		window.draw(back);
 		for(int i=0;i<count;i++){
 		   	sPositive.setPosition(positiveMove[i]);
@@ -538,6 +699,9 @@ void GameManager::Play()
 		}
 		for(int i=0;i<32;i++) {
 		   	window.draw(f[i].s);
+		}
+		if(check==1 ||check==2){
+			window.draw(CHECKMATE);
 		}
 		if(demnuoc %2 == 0){
 			window.draw(IYOU);
